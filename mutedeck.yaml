@@ -1,0 +1,105 @@
+blueprint:
+  name: MuteDeck webhook handler
+  description: 'Home Assistant blueprint for handling MuteDeck webhooks.
+
+
+    In MuteDeck app, click the settings icon, select the Notifications tab, turn on Enable Webhook and set the URL to:
+
+    https://<home-assistant-host>/api/webhook/<webhook-id>
+
+
+    MuteDeck events: https://mutedeck.com/help/api/
+    '
+  source_url: 
+  domain: automation
+  input:
+    webhook:
+      name: Webhook ID
+      description: If you disable Local Only, choose something hard to guess. Security by obscurity!
+    localonly:
+      name: Local Only
+      description: Makes this only accessible from the local network
+      default: false
+      selector:
+        boolean: {}
+    meeting_started:
+      name: Meeting started
+      description: Action to run when a meeting starts.
+      default: false
+      selector:
+        boolean: {}
+    meeting_ended:
+      name: Meeting ended
+      description: Action to run when a meeting ends.
+      default: []
+      selector:
+        action: {}
+    unmuted:
+      name: Unmuted
+      description: Action to run when you unmute your mic.
+      default: []
+      selector:
+        action: {}
+    muted:
+      name: Muted
+      description: Action to run when you mute your mic.
+      default: []
+      selector:
+        action: {}
+    video_on:
+      name: Video on
+      description: Action to run when your video is on.
+      default: []
+      selector:
+        action: {}
+    video_off:
+      name: Video off
+      description: Action to run when your video is off.
+      default: []
+      selector:
+        action: {}
+    screen_sharing_on:
+      name: Screen sharing on
+      description: Action to run when you're screen sharing.
+      default: []
+      selector:
+        action: {}
+    screen_sharing_off:
+      name: Screen sharing off
+      description: Action to run when you're not screen sharing.
+      default: []
+      selector:
+        action: {}
+    recording_on:
+      name: Recording on
+      description: Action to run when the meeting is being recorded.
+      default: []
+      selector:
+        action: {}
+    recording_off:
+      name: Recording off
+      description: Action to run when the meeting is not being recorded.
+      default: []
+      selector:
+        action: {}
+mode: parallel
+trigger:
+- platform: webhook
+  webhook_id: !input webhook
+  allowed_methods:
+  - POST
+  local_only: !input localonly
+action:
+- choose:
+  - conditions: '{{ event == ''sleep_tracking_started'' }}'
+    sequence: !input sleep_tracking_started
+  default:
+  - service: persistent_notification.create
+    data:
+      title: Sleep As Android blueprint exception
+      message: 'Caught unhandled event: {{ event }}'
+      notification_id: sleep_default_action_notification
+  - service: system_log.write
+    data:
+      level: warning
+      message: 'Sleep As Android blueprint caught unhandled event: {{ event }}'
