@@ -9,6 +9,9 @@ blueprint:
 
 
     MuteDeck events: https://mutedeck.com/help/api/
+
+ 
+    Note that all events will be sent any time one of them changes. If you take yourself off mute, the events for meeting, video, record, and sharing status will all be sent and processed.
     '
   source_url: 
   domain: automation
@@ -91,15 +94,33 @@ trigger:
   local_only: !input localonly
 action:
 - choose:
-  - conditions: '{{ event == ''sleep_tracking_started'' }}'
-    sequence: !input sleep_tracking_started
-  default:
-  - service: persistent_notification.create
-    data:
-      title: Sleep As Android blueprint exception
-      message: 'Caught unhandled event: {{ event }}'
-      notification_id: sleep_default_action_notification
-  - service: system_log.write
-    data:
-      level: warning
-      message: 'Sleep As Android blueprint caught unhandled event: {{ event }}'
+  - alias: Meeting started
+    conditions: '{{ trigger.json.call  == ''active'' }}'
+    sequence: !input meeting_started
+  - alias: Meeting ended
+    conditions: '{{ trigger.json.call  != ''active'' }}'
+    sequence: !input meeting_ended
+  - alias: Unmuted
+    conditions: '{{ trigger.json.mute  != ''active'' }}'
+    sequence: !input unmuted
+  - alias: Muted
+    conditions: '{{ trigger.json.mute  == ''active'' }}'
+    sequence: !input muted
+  - alias: Video on
+    conditions: '{{ trigger.json.video  == ''active'' }}'
+    sequence: !input video_on
+  - alias: Video on
+    conditions: '{{ trigger.json.video  != ''active'' }}'
+    sequence: !input video_off
+  - alias: Screen sharing on
+    conditions: '{{ trigger.json.share  == ''active'' }}'
+    sequence: !input screen_sharing_on
+  - alias: Screen sharing off
+    conditions: '{{ trigger.json.share  != ''active'' }}'
+    sequence: !input screen_sharing_off
+  - alias: Recording on
+    conditions: '{{ trigger.json.share  == ''active'' }}'
+    sequence: !input recording_on
+  - alias: Recording off
+    conditions: '{{ trigger.json.share  != ''active'' }}'
+    sequence: !input recording_off
