@@ -1,0 +1,1 @@
+![https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A//github.com/chelming/ha-blueprints/blob/main/blueprints/MuteDeck/MuteDeck.yaml](https://my.home-assistant.io/badges/blueprint_import.svg)
