@@ -22,7 +22,7 @@ blueprint:
     localonly:
       name: Local Only
       description: Makes this only accessible from the local network
-      default: false
+      default: true
       selector:
         boolean: {}
     meeting_started:
@@ -30,7 +30,7 @@ blueprint:
       description: Action to run when a meeting starts.
       default: false
       selector:
-        boolean: {}
+        action: {}
     meeting_ended:
       name: Meeting ended
       description: Action to run when a meeting ends.
