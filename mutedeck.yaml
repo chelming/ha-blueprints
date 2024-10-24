@@ -13,7 +13,7 @@ blueprint:
  
     Note that all events will be sent any time one of them changes. If you take yourself off mute, the events for meeting, video, record, and sharing status will all be sent and processed.
     '
-  source_url: 
+  source_url: https://raw.githubusercontent.com/chelming/ha-mutedeck-blueprint/refs/heads/main/mutedeck.yaml
   domain: automation
   input:
     webhook:
