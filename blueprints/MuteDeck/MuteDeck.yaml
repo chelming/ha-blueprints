@@ -135,11 +135,11 @@ actions:
     alias: Screen sharing off
   - if:
       - condition: template
-        value_template: "{{ trigger.json.share == \"active\" }}"
+        value_template: "{{ trigger.json.record == \"active\" }}"
     then: !input recording_on
     alias: Recording on
   - if:
       - condition: template
-        value_template: "{{ trigger.json.share != \"active\" }}"
+        value_template: "{{ trigger.json.record != \"active\" }}"
     then: !input recording_off
     alias: Recording off
