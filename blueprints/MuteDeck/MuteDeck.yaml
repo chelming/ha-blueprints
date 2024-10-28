@@ -95,51 +95,51 @@ trigger:
 actions:
   - if:
       - condition: template
-        value_template: '{{ trigger.json.call  == ''active'' }}'
+        value_template: "{{ trigger.json.call == \"active\" }}"
     then: !input meeting_started
     alias: Meeting started
   - if:
       - condition: template
-        value_template: '{{ trigger.json.call  != ''active'' }}'
+        value_template: "{{ trigger.json.call != \"active\" }}"
     then: !input meeting_ended
     alias: Meeting ended
   - if:
       - condition: template
-        value_template: '{{ trigger.json.mute  != ''active'' }}'
+        value_template: "{{ trigger.json.mute != \"active\" }}"
     then: !input unmuted
     alias: Unmuted
   - if:
       - condition: template
-        value_template: '{{ trigger.json.mute  == ''active'' }}'
+        value_template: "{{ trigger.json.mute == \"active\" }}"
     then: !input muted
     alias: Muted
   - if:
       - condition: template
-        value_template: '{{ trigger.json.video  == ''active'' }}'
+        value_template: "{{ trigger.json.video == \"active\" }}"
     then: !input video_on
     alias: Video on
   - if:
       - condition: template
-        value_template: '{{ trigger.json.video  != ''active'' }}'
+        value_template: "{{ trigger.json.video != \"active\" }}"
     then: !input video_off
     alias: Video on
   - if:
       - condition: template
-        value_template: '{{ trigger.json.share  == ''active'' }}'
+        value_template: "{{ trigger.json.share == \"active\" }}"
     then: !input screen_sharing_on
     alias: Screen sharing on
   - if:
       - condition: template
-        value_template: '{{ trigger.json.share  != ''active'' }}'
+        value_template: "{{ trigger.json.share != \"active\" }}"
     then: !input screen_sharing_off
     alias: Screen sharing off
   - if:
       - condition: template
-        value_template: '{{ trigger.json.share  == ''active'' }}'
+        value_template: "{{ trigger.json.share == \"active\" }}"
     then: !input recording_on
     alias: Recording on
   - if:
       - condition: template
-        value_template: '{{ trigger.json.share  != ''active'' }}'
+        value_template: "{{ trigger.json.share != \"active\" }}"
     then: !input recording_off
     alias: Recording off
